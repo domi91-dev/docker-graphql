@@ -31,9 +31,7 @@ jobs:
 
     - name: push docker image
       run: |
-        docker push effkat91/docker-graphql:0.0.1 .
-    
-        
+        docker push effkat91/docker-graphql:0.0.1 
         
     
 #    - name: Build the Docker image
