@@ -29,22 +29,22 @@ jobs:
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
-        NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         #echo "Iniciando login"
         docker login -u $DOCKER_USER -p $DOCKER_PASS
-        echo "New version: $NEW_VERSION!!!!!!!!!!"
         #echo "Fin del login"
         
-   # - name: builder docker image
-   #   run: |
-   #     docker build --tag effkat91/docker-graphql:0.0.1 .
-   #     docker build --tag effkat91/docker-graphql:latest .
+    - name: builder docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker build --tag effkat91/docker-graphql:$NEW_VERSION .
+        docker build --tag effkat91/docker-graphql:latest .
 
-   # - name: push docker image
-   #   run: |
-   #     docker push effkat91/docker-graphql:0.0.1 
-   #     docker push effkat91/docker-graphql:latest
-    
-#    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: push docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker push effkat91/docker-graphql:$NEW_VERSION
+        docker push effkat91/docker-graphql:latest
+        echo "New version: $NEW_VERSION!!!!!!!!!!"
