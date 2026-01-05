@@ -22,9 +22,18 @@ jobs:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       run: |
-        echo "Iniciando login"
+        #echo "Iniciando login"
         docker login -u $DOCKER_USER -p $DOCKER_PASS
-        echo "Fin del login"
+        #echo "Fin del login"
+    - name: builder docker image
+      run: |
+        docker build --tag effkat91/docker-graphql:0.0.1 .
+
+    - name: push docker image
+      run: |
+        docker push effkat91/docker-graphql:0.0.1 .
+    
+        
         
     
 #    - name: Build the Docker image
